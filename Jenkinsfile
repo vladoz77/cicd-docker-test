@@ -3,7 +3,7 @@ pipeline {
      environment{
         IMAGE = "vladoz77/cicd-docker"
         VERSION = "1.0.0"
-        IMAGE_TAG = "${VERSION}-${$BUILD_NUMBER}"
+        
     }
     stages {
         stage('sync SCM') {
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub') {
-                        dockerImage.push ("${IMAGE_TAG}")
+                        dockerImage.push ("${VERSION}-${BUILD_NUMBER}")
                         dockerImage.push('latest')
                     }
                 }
