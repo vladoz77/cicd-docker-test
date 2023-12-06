@@ -4,8 +4,7 @@ pipeline {
         VERSION = "1.0.0"
         
     }
-    def app
-    
+
     stages {
         stage('sync SCM') {
             steps {
@@ -17,7 +16,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub'){
-                        app = docker.build("vladoz77/cicd-docker:${VERSION}-${BUILD_NUMBER}")
+                        def app = docker.build("vladoz77/cicd-docker:${VERSION}-${BUILD_NUMBER}")
                         
                         app.inside {
                             sh 'echo "Tests passed"'
