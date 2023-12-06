@@ -11,7 +11,7 @@ pipeline {
         stage('build image') {
             steps {
                 script {
-                    dockerImage = docker.build vladoz77/cicd-docker-test + ":$BUILD_NUMBER"
+                    dockerImage = docker.build(vladoz77/cicd-docker-test + ":$BUILD_NUMBER")
                 }
             }
         }
