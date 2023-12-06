@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('sync SCM') {
             steps {
-                git branch: 'main', url: 'https://github.com/vladoz77/cicd-docker-test'
+                // git branch: 'main', url: 'https://github.com/vladoz77/cicd-docker-test'
+                checkout scm
             }
         }
 
