@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('sync SCM') {
+            steps {
+                
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}
