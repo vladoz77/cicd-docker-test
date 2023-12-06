@@ -1,10 +1,9 @@
 pipeline {
     agent any
-    //  environment{
-    //     // IMAGE = "vladoz77/cicd-docker"
-    //     // VERSION = "1.0.0"
+     environment{
+        VERSION = "1.0.0"
         
-    // }
+    }
     stages {
         stage('sync SCM') {
             steps {
@@ -15,7 +14,7 @@ pipeline {
         stage('build image') {
             steps {
                 script {
-                    dockerImage = docker.build("vladoz77/cicd-docker:${BUILD_NUMBER}") 
+                  def app = docker.build("vladoz77/cicd-docker:${VERSION}-${BUILD_NUMBER}") 
                 }
             }
         }
@@ -24,8 +23,8 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub') {
-                        dockerImage.push ()
-                        dockerImage.push('latest')
+                        app.push ()
+                        app.push('latest')
                     }
                 }
             }
