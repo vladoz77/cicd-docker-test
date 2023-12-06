@@ -13,11 +13,13 @@ pipeline {
 
         stage('build and push image') {
             steps {
+                script {
                     withDockerRegistry(credentialsId: 'dockerhub'){
                         def app = docker.build("vladoz77/cicd-docker:${VERSION}-${BUILD_NUMBER}")
                         app.push ()
                         app.push('latest')
                     }
+                }
             }
         }
 
