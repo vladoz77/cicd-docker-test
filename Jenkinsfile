@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+     environment{
+        IMAGE = "<dockerhub-username>/<repo-name>"
+    }
     stages {
         stage('sync SCM') {
             steps {
@@ -11,7 +13,7 @@ pipeline {
         stage('build image') {
             steps {
                 script {
-                    dockerImage = docker.build(vladoz77/cicd-docker-test + ":$BUILD_NUMBER")
+                    dockerImage = docker.build "${IMAGE}" + ":${BUILD_NUMBER}"
                 }
             }
         }
