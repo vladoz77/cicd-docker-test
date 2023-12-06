@@ -1,7 +1,9 @@
 pipeline {
     agent any
      environment{
+        IMAGE_NAME = "vladoz77/cicd-docker"
         VERSION = "1.0.0"
+        IMAGE_TAG = "${VERSION}-${BUILD_NUMBER}"
         
     }
 
@@ -16,7 +18,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub'){
-                        def app = docker.build("vladoz77/cicd-docker:${VERSION}-${BUILD_NUMBER}")
+                        def app = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                         
                         app.inside {
                             sh 'echo "Tests passed"'
