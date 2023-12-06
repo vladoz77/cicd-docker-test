@@ -1,8 +1,8 @@
 pipeline {
     agent any
      environment{
-        IMAGE = "vladoz77/cicd-docker"
-        VERSION = "1.0.0"
+        // IMAGE = "vladoz77/cicd-docker"
+        // VERSION = "1.0.0"
         
     }
     stages {
@@ -15,7 +15,7 @@ pipeline {
         stage('build image') {
             steps {
                 script {
-                    dockerImage = docker.build("${IMAGE}") 
+                    dockerImage = docker.build("vladoz77/cicd-docker:${BUILD_NUMBER}") 
                 }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub') {
-                        dockerImage.push ("${VERSION}-${BUILD_NUMBER}")
+                        dockerImage.push ()
                         dockerImage.push('latest')
                     }
                 }
