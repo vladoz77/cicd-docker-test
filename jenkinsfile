@@ -4,18 +4,27 @@ pipeline {
     stages {
         stage('sync SCM') {
             steps {
-                
+                git branch: 'main', url: 'https://github.com/vladoz77/cicd-docker-test'
             }
         }
-        stage('Test') {
+
+        stage('build image') {
             steps {
-                echo 'Testing..'
+                script {
+                    dockerImage = docker.build vladoz77/cicd-docker-test + ":$BUILD_NUMBER"
+                }
             }
         }
-        stage('Deploy') {
+
+        stage('image push') {
             steps {
-                echo 'Deploying....'
+                script {
+                    withDockerRegistry(credentialsId: 'dockerhub') {
+                        dockerImage.push()
+                    }
+                }
             }
         }
+       
     }
 }
