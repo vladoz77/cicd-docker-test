@@ -11,24 +11,25 @@ pipeline {
             }
         }
 
-        stage('build image') {
+        stage('build and push image') {
             steps {
-                script {
-                  def app = docker.build("vladoz77/cicd-docker:${VERSION}-${BUILD_NUMBER}") 
-                }
-            }
-        }
-
-        stage('image push') {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'dockerhub') {
+                    withDockerRegistry(credentialsId: 'dockerhub'){
+                        def app = docker.build("vladoz77/cicd-docker:${VERSION}-${BUILD_NUMBER}")
                         app.push ()
                         app.push('latest')
                     }
-                }
             }
         }
+
+        // stage('image push') {
+        //     steps {
+        //         script {
+        //             withDockerRegistry(credentialsId: 'dockerhub') {
+                        
+        //             }
+        //         }
+        //     }
+        // }
        
     }
 }
