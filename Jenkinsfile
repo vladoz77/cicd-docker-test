@@ -3,7 +3,7 @@ pipeline {
      environment{
         IMAGE = "vladoz77/cicd-docker"
         VERSION = "1.0.0"
-        IMAGE_TAG = "${VERSION}"-"${$BUILD_NUMBER}"
+        IMAGE_TAG = "${VERSION}-${$BUILD_NUMBER}"
     }
     stages {
         stage('sync SCM') {
