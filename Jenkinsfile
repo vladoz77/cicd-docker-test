@@ -1,10 +1,10 @@
 pipeline {
     agent any
-     environment{
-        // IMAGE = "vladoz77/cicd-docker"
-        // VERSION = "1.0.0"
+    //  environment{
+    //     // IMAGE = "vladoz77/cicd-docker"
+    //     // VERSION = "1.0.0"
         
-    }
+    // }
     stages {
         stage('sync SCM') {
             steps {
