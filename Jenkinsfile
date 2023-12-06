@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub'){
-                        def app = docker.build("vladoz77/cicd-docker:{env.VERSION}-{env.BUILD_NUMBER}")
+                        def app = docker.build("vladoz77/cicd-docker:{env.BUILD_NUMBER}")
                         
                         app.inside {
                             sh 'echo "Tests passed"'
