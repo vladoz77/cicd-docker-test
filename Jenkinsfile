@@ -1,7 +1,7 @@
 pipeline {
     agent any
      environment{
-        IMAGE = "<dockerhub-username>/<repo-name>"
+        IMAGE = "vladoz77/cicd-docker"
     }
     stages {
         stage('sync SCM') {
