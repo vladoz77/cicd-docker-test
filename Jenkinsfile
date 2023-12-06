@@ -8,7 +8,6 @@ pipeline {
     stages {
         stage('sync SCM') {
             steps {
-                // git branch: 'main', url: 'https://github.com/vladoz77/cicd-docker-test'
                 checkout scm
             }
         }
@@ -17,7 +16,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub'){
-                        def app = docker.build("vladoz77/cicd-docker:${VERSION}-${BUILD_NUMBER}")
+                        def app = docker.build("vladoz77/cicd-docker:{env.VERSION}-{env.BUILD_NUMBER}")
                         
                         app.inside {
                             sh 'echo "Tests passed"'
