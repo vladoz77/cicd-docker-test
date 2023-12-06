@@ -2,6 +2,8 @@ pipeline {
     agent any
      environment{
         IMAGE = "vladoz77/cicd-docker"
+        VERSION = "1.0.0"
+        IMAGE_TAG = "${VERSION}"-"${$BUILD_NUMBER}"
     }
     stages {
         stage('sync SCM') {
@@ -13,7 +15,7 @@ pipeline {
         stage('build image') {
             steps {
                 script {
-                    dockerImage = docker.build "${IMAGE}" + ":${BUILD_NUMBER}"
+                    dockerImage = docker.build("${IMAGE}") 
                 }
             }
         }
@@ -22,7 +24,8 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub') {
-                        dockerImage.push()
+                        dockerImage.push ("${IMAGE_TAG}")
+                        docker_image.push('latest')
                     }
                 }
             }
