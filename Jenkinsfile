@@ -40,16 +40,13 @@ pipeline {
                 }
             }
         }
-
-        // stage('image push') {
-        //     steps {
-        //         script {
-        //             withDockerRegistry(credentialsId: 'dockerhub') {
-                        
-        //             }
-        //         }
-        //     }
-        // }
+        
+        stage("Checkout scm"){
+            steps{
+                build 'gitops-docker', parameters: [credentials(name: 'IMAGE_TAG', value: "${IMAGE_TAG}")])
+            }
+        }
+        
        
     }
 }
