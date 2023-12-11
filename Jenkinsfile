@@ -34,8 +34,8 @@ pipeline {
         stage('delete image') {
             steps {
                 script{
-                    sh docker image rm "${IMAGE_NAME}:${IMAGE_TAG}"
-                    sh docker image rm "${IMAGE_NAME}:latest"
+                    sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
+                    sh "docker rmi ${IMAGE_NAME}:latest"
 
                 }
             }
