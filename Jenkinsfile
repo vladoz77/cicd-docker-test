@@ -43,7 +43,7 @@ pipeline {
         
         stage("Checkout scm"){
             steps{
-                build job 'gitops-docker', parameters: [credentials(name: 'IMAGE_TAG', value: "${IMAGE_TAG}")]
+                build job: 'gitops-docker',  parameters: [credentials(name: 'IMAGE_TAG', value: "${IMAGE_TAG}")]
             }
         }
         
