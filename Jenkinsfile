@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage('build and push image') {
+        stage('build image') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub'){
@@ -24,8 +24,8 @@ pipeline {
                             sh 'echo "Tests passed"'
                             }
                         
-                        app.push ()
-                        app.push('latest')
+                        // app.push ()
+                        // app.push('latest')
                     }
                 }
             }
@@ -45,6 +45,18 @@ pipeline {
                         error "Test-Image ERROR: The execution of the container structure tests failed, see the log for details."
                         echo err
                     } 
+                }
+            }
+        }
+
+        
+        stage('build image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'dockerhub'){
+                        app.push ()
+                        app.push('latest')
+                    }
                 }
             }
         }
