@@ -50,7 +50,7 @@ pipeline {
         }
 
         
-        stage('build image') {
+        stage('push image') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub'){
