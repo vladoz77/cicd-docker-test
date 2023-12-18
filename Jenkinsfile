@@ -20,10 +20,7 @@ pipeline {
                     withDockerRegistry(credentialsId: 'dockerhub'){
                         def app = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                         
-                        app.inside {
-                            sh 'echo "Tests passed"'
-                            }
-                        sh(returnStdout: true, script: "container-structure-test test --image ${IMAGE_NAME}:${IMAGE_TAG} --config './app/unit-test.yaml' --test-report test.json")
+                        sh(returnStdout: true, script: "container-structure-test test --image ${IMAGE_NAME}:${IMAGE_TAG} --config './app/unit-test.yaml' --test-report json")
                         
                         app.push ()
                         app.push('latest')
