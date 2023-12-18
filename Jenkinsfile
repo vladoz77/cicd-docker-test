@@ -51,16 +51,6 @@ pipeline {
         // }
 
         
-        stage('push image') {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'dockerhub'){
-                        docker.push ()
-                        app.push('latest')
-                    }
-                }
-            }
-        }
 
         stage('delete image') {
             steps {
