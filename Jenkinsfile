@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub'){
-                        def app = docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "./dockerfiles")
+                        def app = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                         
                         app.inside {
                             sh 'echo "Tests passed"'
