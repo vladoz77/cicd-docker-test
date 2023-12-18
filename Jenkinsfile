@@ -50,9 +50,5 @@ pipeline {
        
     }
 
-    post {
-        always {
-            junit 'text'
-        }
-    }
+    
 }
