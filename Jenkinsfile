@@ -54,8 +54,8 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub'){
-                        app.push ()
-                        app.push('latest')
+                        docker.push ()
+                        docker.push('latest')
                     }
                 }
             }
