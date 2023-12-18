@@ -23,31 +23,32 @@ pipeline {
                         app.inside {
                             sh 'echo "Tests passed"'
                             }
+                        sh(returnStdout: true, script: "container-structure-test test --image ${IMAGE_NAME}:${IMAGE_TAG} --config './app/unit-test.yaml' --test-report test.json")
                         
-                        // app.push ()
-                        // app.push('latest')
+                        app.push ()
+                        app.push('latest')
                     }
                 }
             }
         }
         
-        stage('Test-Image'){
-            steps {
-                script {
-                    try {                           
-                        def status = 0
-                        status = sh(returnStdout: true, script: "container-structure-test test --image ${IMAGE_NAME}:${IMAGE_TAG} --config './app/unit-test.yaml' --json | jq .Fail") as Integer
-                        if (status != 0) {                            
-                            error 'Image Test has failed'
-                        }
+        // stage('Test-Image'){
+        //     steps {
+        //         script {
+        //             try {                           
+        //                 def status = 0
+        //                 status = sh(returnStdout: true, script: "container-structure-test test --image ${IMAGE_NAME}:${IMAGE_TAG} --config './app/unit-test.yaml' --json | jq .Fail") as Integer
+        //                 if (status != 0) {                            
+        //                     error 'Image Test has failed'
+        //                 }
 
-                    } catch (err) {
-                        error "Test-Image ERROR: The execution of the container structure tests failed, see the log for details."
-                        echo err
-                    } 
-                }
-            }
-        }
+        //             } catch (err) {
+        //                 error "Test-Image ERROR: The execution of the container structure tests failed, see the log for details."
+        //                 echo err
+        //             } 
+        //         }
+        //     }
+        // }
 
         
         stage('push image') {
@@ -55,7 +56,7 @@ pipeline {
                 script {
                     withDockerRegistry(credentialsId: 'dockerhub'){
                         docker.push ()
-                        docker.push('latest')
+                        app.push('latest')
                     }
                 }
             }
